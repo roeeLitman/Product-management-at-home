@@ -1,6 +1,13 @@
-import { Schema } from "mongoose"
+import { Model, model, Schema, Types } from "mongoose"
 
-const userSchma = new Schema ({
+export interface User {
+    name: string,
+    lastName: string,
+    password: string,
+    groups: string[]
+}
+
+const userSchma = new Schema<User>({
     name: {
         type: String,
         required: true
@@ -12,5 +19,12 @@ const userSchma = new Schema ({
     password: {
         type: String,
         required: true
+    },
+    groups: {
+        type: [{type: Types.ObjectId, ref: "Group"}],
     }
 })
+
+const UsersModel: Model<User> = model<User>("User", userSchma)
+
+export default UsersModel
