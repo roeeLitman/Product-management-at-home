@@ -4,7 +4,7 @@ export interface User {
     name: string,
     lastName: string,
     password: string,
-    groups: string[]
+    groups: Types.ObjectId[]
 }
 
 const userSchma = new Schema<User>({
