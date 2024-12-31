@@ -7,3 +7,5 @@ auothRouter.get("/login", () => {} )
 
 // register
 auothRouter.get("/register", () => {} )
+
+export default auothRouter

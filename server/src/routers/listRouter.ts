@@ -13,3 +13,6 @@ listRouter.delete("/delete", () => {} )
 
 //update list by id
 listRouter.put("/update", () => {} )
+
+
+export default listRouter

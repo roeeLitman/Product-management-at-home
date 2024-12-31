@@ -1,21 +1,21 @@
 import {Router} from "express";
 
-const listRouter = Router()
+const groupRouter = Router()
 
 // get grop by id
-listRouter.get("/:id", () => {} )
+groupRouter.get("/:id", () => {} )
 
 //create new grop
-listRouter.get("/create", () => {} )
+groupRouter.get("/create", () => {} )
 
 //delete grop by id
-listRouter.get("/delete/:id", () => {} )
+groupRouter.get("/delete/:id", () => {} )
 
 //add user to grop
-listRouter.get("/addUser/:id", () => {} )
+groupRouter.get("/addUser/:id", () => {} )
 
 //delete user from grop
-listRouter.get("/deleteUser/:id", () => {} )
+groupRouter.get("/deleteUser/:id", () => {} )
 
-export default listRouter
+export default groupRouter
 

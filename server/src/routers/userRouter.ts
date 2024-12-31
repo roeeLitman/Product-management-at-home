@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const userRouter = Router()
 
-// get all user
+// get all user 
 userRouter.get("/", () => {} )
 
 // get user by id
