@@ -29,8 +29,8 @@ const productSchema = new Schema<Product>({
         default: 0,
     },
     list: {
-        type: Types.ObjectId,
-        required: true,
+        type: Schema.Types.ObjectId,
+        ref: "List",
     },
     isWeight: {
         type: Boolean,

@@ -20,10 +20,11 @@ const listSchema = new Schema<List>({
         enum: Object.values(ListType)
     },
     group: {
-        type: Types.ObjectId
+        type: Schema.Types.ObjectId ,
+        ref: "Group",
     },
     prodacts: {
-        type: [{ type: Types.ObjectId, ref: "Product" }]
+        type: [{ type: Schema.Types.ObjectId , ref: "Product" }]
     },
     createdAt: {
         type: Date,
