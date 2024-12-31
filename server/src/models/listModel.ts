@@ -31,7 +31,8 @@ const listSchema = new Schema<List>({
     },
     completed: {
         type: Boolean,
-        required: false
+        required: false,
+        default: null
     }
 })
 

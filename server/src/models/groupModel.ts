@@ -1,5 +1,4 @@
 import { Model, model, Schema, Types } from "mongoose";
-import { User } from "./userModel";
 
 interface Group {
     name: string;
