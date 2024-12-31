@@ -2,8 +2,14 @@ import {Router} from "express";
 
 const listRouter = Router()
 
-//create new list
-listRouter.get("/create", () => {} )
+//get all lists
+listRouter.post("/", () => {} )
 
-//delete list
-listRouter.get("/delete", () => {} )
+//create new list
+listRouter.post("/create", () => {} )
+
+//delete list by id
+listRouter.delete("/delete", () => {} )
+
+//update list by id
+listRouter.put("/update", () => {} )
