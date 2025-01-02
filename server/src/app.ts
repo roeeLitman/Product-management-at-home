@@ -15,10 +15,10 @@ app.use(express.json());
 app.use(cors())
 const port = process.env.PORT || 3000;
 
-app.use("/auth",auothRouter)
-app.use("/group", groupRouter)
-app.use("/list", listRouter)
-app.use("/uesr", userRouter)
+app.use("/api/auth",auothRouter)
+app.use("/api/group", groupRouter)
+app.use("/api/list", listRouter)
+app.use("/api/uesr", userRouter)
  
 app.use(errorHandler)
 

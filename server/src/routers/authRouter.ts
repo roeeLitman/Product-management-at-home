@@ -7,6 +7,6 @@ const auothRouter = Router()
 auothRouter.get("/login", () => {} )
 
 // register
-auothRouter.get("/register", createUser) 
+auothRouter.post("/register", createUser) 
 
 export default auothRouter
