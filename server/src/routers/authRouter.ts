@@ -1,4 +1,5 @@
-import {Router} from "express";
+import {NextFunction, Request, Response, Router} from "express";
+import { createUser } from "../controllers/authController";
 
 const auothRouter = Router()
 
@@ -6,6 +7,6 @@ const auothRouter = Router()
 auothRouter.get("/login", () => {} )
 
 // register
-auothRouter.get("/register", () => {} )
+auothRouter.get("/register", createUser) 
 
 export default auothRouter

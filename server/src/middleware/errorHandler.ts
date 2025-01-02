@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import AppError from "../types/class/appErore";
 
 // Middleware של טיפול בשגיאות
