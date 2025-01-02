@@ -1,10 +1,11 @@
+import { application } from "express"
 import UsersModel from "../models/userModel"
 import AppError from "../types/class/appErore"
-import { RegisterDTO } from "../types/DTO/registerDTO"
+import { UserDTO } from "../types/DTO/userDTO"
 import { ResData } from "../types/interface/resData"
 import bcrypt from "bcrypt"
 
-export const createUserService = async (body: RegisterDTO ):Promise <ResData> => {
+export const createUserService = async (body: UserDTO ):Promise <ResData> => {
     try {
         body.password = await bcrypt.hash(body.password, 10)
         const uesr = new UsersModel(body)
@@ -20,5 +21,32 @@ export const createUserService = async (body: RegisterDTO ):Promise <ResData> =>
         }
     } catch (err: any) {
         throw new AppError(err.message, 400)
+    }
+}
+
+export const loginService = async (body: UserDTO): Promise<ResData> => {
+    try {
+        // get user by name
+        const userFRomDb = await UsersModel.findOne({name :body.name})
+        if(!userFRomDb){
+            throw new AppError("User not found", 404)
+        }
+        // compare password
+        const isMatch = await bcrypt.compare(body.password, userFRomDb.password)
+        isMatch && new AppError("password or name is incorrect", 401)
+        
+        // return user
+        return {
+            statusCode: 200,
+            message: "User logged in successfully",
+            data: {
+                _id: userFRomDb._id,
+                name: userFRomDb.name,
+                lastName: userFRomDb.lastName,
+            }
+        }
+
+        } catch (err: any) {
+        throw err
     }
 }
