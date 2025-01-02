@@ -2,9 +2,11 @@ import UsersModel from "../models/userModel"
 import AppError from "../types/class/appErore"
 import { RegisterDTO } from "../types/DTO/registerDTO"
 import { ResData } from "../types/interface/resData"
+import bcrypt from "bcrypt"
 
 export const createUserService = async (body: RegisterDTO ):Promise <ResData> => {
     try {
+        body.password = await bcrypt.hash(body.password, 10)
         const uesr = new UsersModel(body)
         await uesr.save()
         return {
