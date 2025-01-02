@@ -6,8 +6,10 @@ import groupRouter from "./routers/groupRouter";
 import listRouter from "./routers/listRouter";
 import userRouter from "./routers/userRouter";
 import errorHandler from "./middleware/errorHandler";
+import { connectDB } from "./config/db";
 
 const app = express();
+connectDB()
 
 app.use(express.json());
 app.use(cors())
