@@ -10,3 +10,4 @@ auothRouter.post("/login", login)
 auothRouter.post("/register", createUser) 
 
 export default auothRouter
+
