@@ -8,7 +8,7 @@ import { createToken, isMatch } from "../utils/validatetion";
 import jwt from "jsonwebtoken";
 
 export const createUserService = async (body: UserDTO): Promise<ResData> => {
-    try {
+    try {        
         body.password = await bcrypt.hash(body.password, 10);
         const uesr = new UsersModel(body);
         await uesr.save();
@@ -26,15 +26,17 @@ export const createUserService = async (body: UserDTO): Promise<ResData> => {
     }
 };
 
-export const loginService = async (body: UserDTO): Promise<ResData> => {
+export const loginService = async ({name, password}: UserDTO): Promise<ResData> => {
     try {
+        if(! name || !password) throw new AppError("something is missing", 400); 
+        
         // get user by name
-        const userFRomDb = await UsersModel.findOne({ name: body.name }).lean();
+        const userFRomDb = await UsersModel.findOne({ name: name }).lean();
         if (!userFRomDb) {
             throw new AppError("User not found", 404);
         }
         // compare password
-        await isMatch(body.password, userFRomDb.password);
+        await isMatch(password, userFRomDb.password);
 
         //create payload
         const payload = { ...userFRomDb, password: undefined };

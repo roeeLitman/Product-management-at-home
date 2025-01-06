@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { User } from "../models/userModel";
 import { ResData } from "../types/interface/resData";
 import { UserDTO } from "../types/DTO/userDTO";
-import { createUserService } from "../services/aothService";
+import { createUserService, loginService } from "../services/aothService";
 
 // register
 export const createUser = async (
@@ -25,7 +25,7 @@ export const login = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const userWuthToken: ResData = await createUserService(req.body);
+        const userWuthToken: ResData = await loginService(req.body);
         res.status(userWuthToken.statusCode).json(userWuthToken.data);
     } catch (err) {
         next(err);

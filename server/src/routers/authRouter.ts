@@ -4,7 +4,7 @@ import { createUser, login } from "../controllers/authController";
 const auothRouter = Router()
 
 // login
-auothRouter.get("/login", login)
+auothRouter.post("/login", login)
 
 // register
 auothRouter.post("/register", createUser) 
