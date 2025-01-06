@@ -47,9 +47,7 @@ export const loginService = async (body: UserDTO): Promise<ResData> => {
             statusCode: 200,
             message: "User logged in successfully",
             data: {
-                _id: userFRomDb._id,
-                name: userFRomDb.name,
-                lastName: userFRomDb.lastName,
+                ...payload,
                 token,
             },
         };

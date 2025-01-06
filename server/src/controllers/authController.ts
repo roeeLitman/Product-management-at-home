@@ -4,6 +4,7 @@ import { ResData } from "../types/interface/resData";
 import { UserDTO } from "../types/DTO/userDTO";
 import { createUserService } from "../services/aothService";
 
+// register
 export const createUser = async (
     req: Request<any, any, any, UserDTO>,
     res: Response,
@@ -12,6 +13,20 @@ export const createUser = async (
     try {
         const user: ResData = await createUserService(req.body);
         res.status(user.statusCode).json(user.data);
+    } catch (err) {
+        next(err);
+    }
+};
+
+// login
+export const login = async (
+    req: Request<any, any, any, UserDTO>,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const userWuthToken: ResData = await createUserService(req.body);
+        res.status(userWuthToken.statusCode).json(userWuthToken.data);
     } catch (err) {
         next(err);
     }
