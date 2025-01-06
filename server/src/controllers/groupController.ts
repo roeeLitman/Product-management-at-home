@@ -4,5 +4,10 @@ import { createNewGroupService } from "../services/groupService";
 
 // create newGroup
 export const createGroup = async (req: Request, res: Response , next: NextFunction) => {
-    const resWithId: ResData = await createNewGroupService(req.body.name, req.body.userId);
+    try {
+        const resWithId: ResData = await createNewGroupService(req.body.name, req.body.userId);
+        res.status(resWithId.statusCode).json(resWithId.data);
+    } catch (err) {
+        next(err);
+    }
 }
