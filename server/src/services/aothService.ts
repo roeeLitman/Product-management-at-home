@@ -4,7 +4,8 @@ import AppError from "../types/class/appErore";
 import { UserDTO } from "../types/DTO/userDTO";
 import { ResData } from "../types/interface/resData";
 import bcrypt from "bcrypt";
-import { isMatch } from "../utils/validatetion";
+import { createToken, isMatch } from "../utils/validatetion";
+import jwt from "jsonwebtoken";
 
 export const createUserService = async (body: UserDTO): Promise<ResData> => {
     try {
@@ -28,13 +29,18 @@ export const createUserService = async (body: UserDTO): Promise<ResData> => {
 export const loginService = async (body: UserDTO): Promise<ResData> => {
     try {
         // get user by name
-        const userFRomDb = await UsersModel.findOne({ name: body.name });
+        const userFRomDb = await UsersModel.findOne({ name: body.name }).lean();
         if (!userFRomDb) {
             throw new AppError("User not found", 404);
         }
         // compare password
         await isMatch(body.password, userFRomDb.password);
 
+        //create payload
+        const payload = { ...userFRomDb, password: undefined };
+
+        // create token
+        const token = createToken(payload);
 
         // return user
         return {
@@ -44,6 +50,7 @@ export const loginService = async (body: UserDTO): Promise<ResData> => {
                 _id: userFRomDb._id,
                 name: userFRomDb.name,
                 lastName: userFRomDb.lastName,
+                token,
             },
         };
     } catch (err: any) {
