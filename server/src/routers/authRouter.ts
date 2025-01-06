@@ -1,10 +1,10 @@
 import {NextFunction, Request, Response, Router} from "express";
-import { createUser } from "../controllers/authController";
+import { createUser, login } from "../controllers/authController";
 
 const auothRouter = Router()
 
 // login
-auothRouter.get("/login", () => {} )
+auothRouter.get("/login", login)
 
 // register
 auothRouter.post("/register", createUser) 
