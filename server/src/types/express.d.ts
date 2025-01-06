@@ -3,7 +3,7 @@ import 'express';
 
 declare module 'express' {
     interface Request {
-      payload?: {
+      user?: {
         [key: string]: any;
       };
     }

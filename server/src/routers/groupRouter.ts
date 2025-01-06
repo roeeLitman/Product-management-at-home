@@ -1,5 +1,6 @@
 import {Router} from "express";
 import { createGroup } from "../controllers/groupController";
+import { verifyToken } from "../middleware/authMiddleware";
 
 const groupRouter = Router()
 
@@ -7,7 +8,7 @@ const groupRouter = Router()
 groupRouter.get("/:id", () => {} )
 
 //create new grop
-groupRouter.post("/create", createGroup)
+groupRouter.post("/create", verifyToken ,createGroup)
 
 //delete grop by id
 groupRouter.get("/delete/:id", () => {} )
