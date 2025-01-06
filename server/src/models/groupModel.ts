@@ -17,9 +17,11 @@ const groupSchema = new Schema<Group>({
     },
     watchlist: {
         type: [{ type: Types.ObjectId, ref: "List" }],
+        default: [],
     },
     shoppingList: {
         type: [{ type: Types.ObjectId, ref: "List" }],
+        default: [],
     },
 });
 

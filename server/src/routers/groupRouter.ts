@@ -1,4 +1,5 @@
 import {Router} from "express";
+import { createGroup } from "../controllers/groupController";
 
 const groupRouter = Router()
 
@@ -6,7 +7,7 @@ const groupRouter = Router()
 groupRouter.get("/:id", () => {} )
 
 //create new grop
-groupRouter.get("/create", () => {} )
+groupRouter.get("/create", createGroup)
 
 //delete grop by id
 groupRouter.get("/delete/:id", () => {} )
