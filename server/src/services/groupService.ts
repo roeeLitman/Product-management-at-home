@@ -26,7 +26,7 @@ export const createNewGroupService = async (name:string , userId: string): Promi
 
 export const getGroupByIdService = async (id: string): Promise< ResData > => {
     try{
-        const groupsFromDb = await GroupModel.findById({id}).lean()
+        const groupsFromDb = await GroupModel.findById(id).lean()
         if(! groupsFromDb) throw new AppError("not find grupe", 401)
         return  {
             statusCode: 200,
