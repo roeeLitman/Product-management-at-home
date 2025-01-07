@@ -7,6 +7,7 @@ import listRouter from "./routers/listRouter";
 import userRouter from "./routers/userRouter";
 import errorHandler from "./middleware/errorHandler";
 import { connectDB } from "./config/db";
+import { verifyToken } from "./middleware/authMiddleware";
 
 const app = express();
 connectDB()
@@ -16,7 +17,7 @@ app.use(cors())
 const port = process.env.PORT || 3000;
 
 app.use("/api/auth",auothRouter)
-app.use("/api/group", groupRouter)
+app.use("/api/group",verifyToken , groupRouter)
 app.use("/api/list", listRouter)
 app.use("/api/uesr", userRouter)
  

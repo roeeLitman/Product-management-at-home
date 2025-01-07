@@ -4,9 +4,9 @@ import AppError from "../types/class/appErore"
 import { UserPayload } from "../types/express"
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization')
-    if (!token) throw new AppError("token is missing", 401)
+    const token = req.header('Authorization')    
     try {
+        if (!token) {throw new AppError("token is missing", 401)}
         const decoded =  jwt.verify(token, process.env.JWT_SECRET as string) as UserPayload
         req.user = decoded        
         next();

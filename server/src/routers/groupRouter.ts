@@ -8,7 +8,7 @@ const groupRouter = Router()
 groupRouter.get("/:id", () => {} )
 
 //create new grop
-groupRouter.post("/create", verifyToken ,createGroup)
+groupRouter.post("/create" ,createGroup)
 
 //delete grop by id
 groupRouter.get("/delete/:id", () => {} )
