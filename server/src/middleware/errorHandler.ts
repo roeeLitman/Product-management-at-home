@@ -4,7 +4,8 @@ import { JsonWebTokenError } from "jsonwebtoken";
 
 // Middleware של טיפול בשגיאות
 const errorHandler = async (err: any, req: Request, res: Response, next: NextFunction): Promise< void > => {
-
+    console.log(err);
+    
     if (err instanceof AppError) {
         res.status(err.statusCode).json({
             error: err.message,
