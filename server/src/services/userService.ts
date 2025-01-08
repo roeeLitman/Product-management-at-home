@@ -14,3 +14,15 @@ export const addGroupByIdService = async (userId: string, groupId: mongoose.Type
         throw err;
     }
 };
+
+export const addGroupToUserService = async (userId: mongoose.Types.ObjectId, groupId: mongoose.Types.ObjectId) => {
+    try {
+        const user = await UsersModel.findById(userId);
+        if (!user) throw new AppError("User not found", 404);
+        user.groups!.push(groupId);
+        await user.save();
+        return user.groups;
+    } catch (err) {
+        throw err;
+    }
+}
