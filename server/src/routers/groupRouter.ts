@@ -1,7 +1,6 @@
 import {Router} from "express";
 import { addUserToGroup, createGroup, deleteGroup, getGroupById } from "../controllers/groupController";
-import { verifyToken } from "../middleware/authMiddleware";
-import { get } from "mongoose";
+
 
 const groupRouter = Router()
 
