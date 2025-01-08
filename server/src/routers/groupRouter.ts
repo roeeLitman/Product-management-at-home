@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { createGroup, getGroupById } from "../controllers/groupController";
+import { addUserToGroup, createGroup, getGroupById } from "../controllers/groupController";
 import { verifyToken } from "../middleware/authMiddleware";
 import { get } from "mongoose";
 
@@ -15,7 +15,7 @@ groupRouter.post("/create" ,createGroup)
 groupRouter.delete("/delete/:id", () => {} )
 
 //add user to grop
-groupRouter.get("/addUser/:id", () => {} )
+groupRouter.post("/adduser", addUserToGroup )
 
 //delete user from grop
 groupRouter.get("/deleteUser/:id", () => {} )
