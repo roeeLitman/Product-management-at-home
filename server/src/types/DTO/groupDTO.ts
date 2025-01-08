@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface Group {
+export interface GroupDTO {
     groupId: mongoose.Types.ObjectId;
     userId: mongoose.Types.ObjectId;
 }

@@ -8,7 +8,7 @@ import {
     deleteRefGroupFromUsersService,
 } from "./userService";
 import mongoose from "mongoose";
-import { Group } from "../types/DTO/groupDTO";
+import { GroupDTO } from "../types/DTO/groupDTO";
 
 export const createNewGroupService = async (
     name: string,
@@ -46,7 +46,7 @@ export const getGroupByIdService = async (id: string): Promise<ResData> => {
     }
 };
 export const addUserFromGroupService = async (
-    data: Group
+    data: GroupDTO
 ): Promise<ResData> => {
     try {
         const group = await GroupModel.findById(data.groupId);
@@ -99,7 +99,14 @@ export const deleteGroupByIdService = async (
 };
 
 // delete user from group
-export const deleteUserFromGroupService = async () => {
+export const deleteUserFromGroupService = async ({groupId, userId}: GroupDTO) => {
     try {
-    } catch (err) {}
+        const groupFromDb =  await GroupModel.findById(groupId);
+        if(!groupFromDb) throw new AppError("not find grupe", 401);
+        await deleteRefGroupFromUsersService([userId], groupId);
+        const updateGroup = await GroupModel.findByIdAndUpdate({_id: groupId}, {$pull: {users: userId}}, {new: true}).lean();
+        return updateGroup?.users
+    } catch (err) {
+        throw err
+    }
 };
