@@ -12,7 +12,7 @@ groupRouter.get("/:id", getGroupById)
 groupRouter.post("/create" ,createGroup)
 
 //delete grop by id
-groupRouter.delete("/delete/:id", () => {} )
+groupRouter.delete("/delete/:id",() => {} )
 
 //add user to grop
 groupRouter.post("/adduser", addUserToGroup )

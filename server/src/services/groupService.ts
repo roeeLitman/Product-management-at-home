@@ -2,7 +2,7 @@ import e from "express";
 import GroupModel from "../models/groupModel";
 import AppError from "../types/class/appErore";
 import { ResData } from "../types/interface/resData";
-import { addGroupByIdService, addGroupToUserService } from "./userService";
+import { addGroupByIdService, addGroupToUserService, deleteRefGroupFromUsersService } from "./userService";
 import mongoose from "mongoose";
 import { AddUserDTO } from "../types/DTO/addUserDTO";
 
@@ -62,3 +62,29 @@ export const addUserFromGroupService = async (data: AddUserDTO): Promise<ResData
         throw err;
     }
 };
+
+
+// delte grupoe by id
+export const deleteGroupByIdService = async (id: mongoose.Types.ObjectId): Promise<ResData> => {
+    try {
+        const group = await GroupModel.findById(id);
+        if (!group) throw new AppError("not find grupe", 401);
+
+        //delet ref from users
+        const updateWriteOpResult = await deleteRefGroupFromUsersService(group.users, id);
+
+        //delet group
+        const updateWriteOpResult2 = await GroupModel.findByIdAndDelete(id);
+        
+        return {
+            statusCode: 200,
+            message: "deleted group",
+            data: {
+                updateWriteOpResult,
+                groupId: updateWriteOpResult2?._id
+            },
+        };
+    } catch (err) {
+        throw err;
+    }
+}
