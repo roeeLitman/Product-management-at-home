@@ -4,6 +4,7 @@ import AppError from "../types/class/appErore";
 import { ResData } from "../types/interface/resData";
 import { addGroupByIdService, addGroupToUserService } from "./userService";
 import mongoose from "mongoose";
+import { AddUserDTO } from "../types/DTO/addUserDTO";
 
 export const createNewGroupService = async (
     name: string,
@@ -40,12 +41,7 @@ export const getGroupByIdService = async (id: string): Promise<ResData> => {
         throw err;
     }
 };
-
-export const addUserFromGroupService = async (data: {
-    groupId: mongoose.Types.ObjectId;
-    userId: mongoose.Types.ObjectId;
-    addingId: string;
-}): Promise<ResData> => {
+export const addUserFromGroupService = async (data: AddUserDTO): Promise<ResData> => {
 
     try {
         const group = await GroupModel.findById(data.groupId);
