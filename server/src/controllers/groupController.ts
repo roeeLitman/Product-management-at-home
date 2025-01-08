@@ -3,9 +3,11 @@ import { ResData } from "../types/interface/resData";
 import {
     addUserFromGroupService,
     createNewGroupService,
+    deleteGroupByIdService,
     getGroupByIdService,
 } from "../services/groupService";
 import { AddUserDTO } from "../types/DTO/addUserDTO";
+import mongoose from "mongoose";
 
 // create newGroup
 export const createGroup = async (
@@ -47,6 +49,16 @@ export const addUserToGroup = async (
     try {
         const resWithGrupe: ResData = await addUserFromGroupService(req.body);
         res.status(resWithGrupe.statusCode).json(resWithGrupe.data);
+    } catch (err) {
+        next(err);
+    }
+};
+
+// delete group
+export const deleteGroup = async (req: Request<any, any, any, { id: mongoose.Types.ObjectId }>, res: Response, next: NextFunction) => {
+    try {
+        const resObj: ResData = await deleteGroupByIdService(req.params.id);
+        res.status(resObj.statusCode).json(resObj.data);
     } catch (err) {
         next(err);
     }
