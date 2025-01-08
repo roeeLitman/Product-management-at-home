@@ -6,7 +6,7 @@ import {
     deleteGroupByIdService,
     getGroupByIdService,
 } from "../services/groupService";
-import { AddUserDTO } from "../types/DTO/addUserDTO";
+import { Group } from "../types/DTO/groupDTO";
 import mongoose from "mongoose";
 
 // create newGroup
@@ -42,7 +42,7 @@ export const getGroupById = async (
 
 // add user to groupt
 export const addUserToGroup = async (
-    req: Request<any, any, AddUserDTO>,
+    req: Request<any, any, Group>,
     res: Response,
     next: NextFunction
 ) => {
@@ -55,7 +55,11 @@ export const addUserToGroup = async (
 };
 
 // delete group
-export const deleteGroup = async (req: Request<any, any, any, { id: mongoose.Types.ObjectId }>, res: Response, next: NextFunction) => {
+export const deleteGroup = async (
+    req: Request<any, any, any, { id: mongoose.Types.ObjectId }>,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const resObj: ResData = await deleteGroupByIdService(req.params.id);
         res.status(resObj.statusCode).json(resObj.data);

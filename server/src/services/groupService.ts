@@ -2,9 +2,13 @@ import e from "express";
 import GroupModel from "../models/groupModel";
 import AppError from "../types/class/appErore";
 import { ResData } from "../types/interface/resData";
-import { addGroupByIdService, addGroupToUserService, deleteRefGroupFromUsersService } from "./userService";
+import {
+    addGroupByIdService,
+    addGroupToUserService,
+    deleteRefGroupFromUsersService,
+} from "./userService";
 import mongoose from "mongoose";
-import { AddUserDTO } from "../types/DTO/addUserDTO";
+import { Group } from "../types/DTO/groupDTO";
 
 export const createNewGroupService = async (
     name: string,
@@ -41,8 +45,9 @@ export const getGroupByIdService = async (id: string): Promise<ResData> => {
         throw err;
     }
 };
-export const addUserFromGroupService = async (data: AddUserDTO): Promise<ResData> => {
-
+export const addUserFromGroupService = async (
+    data: Group
+): Promise<ResData> => {
     try {
         const group = await GroupModel.findById(data.groupId);
 
@@ -63,28 +68,38 @@ export const addUserFromGroupService = async (data: AddUserDTO): Promise<ResData
     }
 };
 
-
 // delte grupoe by id
-export const deleteGroupByIdService = async (id: mongoose.Types.ObjectId): Promise<ResData> => {
+export const deleteGroupByIdService = async (
+    id: mongoose.Types.ObjectId
+): Promise<ResData> => {
     try {
         const group = await GroupModel.findById(id);
         if (!group) throw new AppError("not find grupe", 401);
 
         //delet ref from users
-        const updateWriteOpResult = await deleteRefGroupFromUsersService(group.users, id);
+        const updateWriteOpResult = await deleteRefGroupFromUsersService(
+            group.users,
+            id
+        );
 
         //delet group
         const updateWriteOpResult2 = await GroupModel.findByIdAndDelete(id);
-        
+
         return {
             statusCode: 200,
             message: "deleted group",
             data: {
                 updateWriteOpResult,
-                groupId: updateWriteOpResult2?._id
+                groupId: updateWriteOpResult2?._id,
             },
         };
     } catch (err) {
         throw err;
     }
-}
+};
+
+// delete user from group
+export const deleteUserFromGroupService = async () => {
+    try {
+    } catch (err) {}
+};

@@ -17,7 +17,7 @@ groupRouter.delete("/delete/:id", deleteGroup )
 groupRouter.post("/adduser", addUserToGroup )
 
 //delete user from grop
-groupRouter.get("/deleteUser/:id", () => {} )
+groupRouter.get("/deleteUser/", () => {} )
 
 export default groupRouter
 
