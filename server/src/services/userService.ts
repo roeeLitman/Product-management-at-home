@@ -26,3 +26,12 @@ export const addGroupToUserService = async (userId: mongoose.Types.ObjectId, gro
         throw err;
     }
 }
+
+export const deleteRefGroupFromUsersService = async (groupIds: mongoose.Types.ObjectId[], groupId: mongoose.Types.ObjectId) => {
+    try {
+        const updateWriteOpResult = await UsersModel.updateMany({ _id: {$in: groupIds} }, { $pull: { groups: groupId }} );
+        return updateWriteOpResult
+    } catch (err) {
+        throw err
+    }
+}
