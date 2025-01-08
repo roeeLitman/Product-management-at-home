@@ -5,6 +5,7 @@ import {
     createNewGroupService,
     deleteGroupByIdService,
     getGroupByIdService,
+    deleteUserFromGroupService,
 } from "../services/groupService";
 import { GroupDTO } from "../types/DTO/groupDTO";
 import mongoose from "mongoose";
@@ -63,6 +64,16 @@ export const deleteGroup = async (
     try {
         const resObj: ResData = await deleteGroupByIdService(req.params.id);
         res.status(resObj.statusCode).json(resObj.data);
+    } catch (err) {
+        next(err);
+    }
+};
+
+// delete user from group
+export const deleteUserFromGroup = async (req: Request<any, any, GroupDTO>, res: Response, next: NextFunction) => {
+    try {
+        const resWithGrupe: ResData = await deleteUserFromGroupService(req.body);
+        res.status(resWithGrupe.statusCode).json(resWithGrupe.data);
     } catch (err) {
         next(err);
     }

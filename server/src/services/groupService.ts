@@ -99,13 +99,18 @@ export const deleteGroupByIdService = async (
 };
 
 // delete user from group
-export const deleteUserFromGroupService = async ({groupId, userId}: GroupDTO) => {
+export const deleteUserFromGroupService = async ({groupId, userId}: GroupDTO): Promise <ResData> => {
     try {
+        if(!groupId || !userId) throw new AppError("something is missing", 400);
         const groupFromDb =  await GroupModel.findById(groupId);
         if(!groupFromDb) throw new AppError("not find grupe", 401);
         await deleteRefGroupFromUsersService([userId], groupId);
         const updateGroup = await GroupModel.findByIdAndUpdate({_id: groupId}, {$pull: {users: userId}}, {new: true}).lean();
-        return updateGroup?.users
+        return {
+            statusCode: 200,
+            message: "deleted user from group",
+            data: updateGroup?.users
+        }
     } catch (err) {
         throw err
     }

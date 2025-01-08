@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { addUserToGroup, createGroup, deleteGroup, getGroupById } from "../controllers/groupController";
+import { addUserToGroup, createGroup, deleteGroup, deleteUserFromGroup, getGroupById } from "../controllers/groupController";
 
 
 const groupRouter = Router()
@@ -17,7 +17,7 @@ groupRouter.delete("/delete/:id", deleteGroup )
 groupRouter.post("/adduser", addUserToGroup )
 
 //delete user from grop
-groupRouter.get("/deleteUser/", () => {} )
+groupRouter.post("/deleteuser", deleteUserFromGroup )
 
 export default groupRouter
 
