@@ -1,4 +1,5 @@
 import {Router} from "express";
+import { createNewList } from "../controllers/listCOntroller";
 
 const listRouter = Router()
 
@@ -6,7 +7,7 @@ const listRouter = Router()
 listRouter.post("/", () => {} )
 
 //create new list
-listRouter.post("/create", () => {} )
+listRouter.post("/create", createNewList )
 
 //delete list by id
 listRouter.delete("/delete", () => {} )
