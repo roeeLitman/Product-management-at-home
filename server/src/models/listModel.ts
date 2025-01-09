@@ -17,14 +17,16 @@ const listSchema = new Schema<List>({
     },
     listType: {
         type: String,
-        enum: Object.values(ListType)
+        enum: Object.values(ListType),
+        required: true
     },
     group: {
         type: Schema.Types.ObjectId ,
         ref: "Group",
     },
     prodacts: {
-        type: [{ type: Schema.Types.ObjectId , ref: "Product" }]
+        type: [{ type: Schema.Types.ObjectId , ref: "Product" }],
+        default: []
     },
     createdAt: {
         type: Date,
