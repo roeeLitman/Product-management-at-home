@@ -9,6 +9,7 @@ import {
 } from "./userService";
 import mongoose from "mongoose";
 import { GroupDTO } from "../types/DTO/groupDTO";
+import { ListType } from "../types/enum/ListType";
 
 export const createNewGroupService = async (
     name: string,
@@ -99,19 +100,49 @@ export const deleteGroupByIdService = async (
 };
 
 // delete user from group
-export const deleteUserFromGroupService = async ({groupId, userId}: GroupDTO): Promise <ResData> => {
+export const deleteUserFromGroupService = async ({
+    groupId,
+    userId,
+}: GroupDTO): Promise<ResData> => {
     try {
-        if(!groupId || !userId) throw new AppError("something is missing", 400);
-        const groupFromDb =  await GroupModel.findById(groupId);
-        if(!groupFromDb) throw new AppError("not find grupe", 401);
+        if (!groupId || !userId)
+            throw new AppError("something is missing", 400);
+        const groupFromDb = await GroupModel.findById(groupId);
+        if (!groupFromDb) throw new AppError("not find grupe", 401);
         await deleteRefGroupFromUsersService([userId], groupId);
-        const updateGroup = await GroupModel.findByIdAndUpdate({_id: groupId}, {$pull: {users: userId}}, {new: true}).lean();
+        const updateGroup = await GroupModel.findByIdAndUpdate(
+            { _id: groupId },
+            { $pull: { users: userId } },
+            { new: true }
+        ).lean();
         return {
             statusCode: 200,
             message: "deleted user from group",
-            data: updateGroup?.users
-        }
+            data: updateGroup?.users,
+        };
     } catch (err) {
-        throw err
+        throw err;
+    }
+};
+
+// add list to group
+export const addListToGroupService = async (
+    groupId: mongoose.Types.ObjectId,
+    listId: mongoose.Types.ObjectId,
+    listType: ListType
+) => {
+    try {
+        const group = await GroupModel.findById(groupId);
+        if (!group) throw new AppError("not find grupe", 401);
+        listType === ListType.Watchlist
+            ? group.watchlist.push(listId)
+            : group.shoppingList.push(listId);
+        await group.save();
+
+        return listType === ListType.Watchlist
+            ? group.watchlist
+            : group.shoppingList
+    } catch (err) {
+        throw err;
     }
 };
