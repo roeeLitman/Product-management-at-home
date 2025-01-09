@@ -17,8 +17,8 @@ app.use(cors())
 const port = process.env.PORT || 3000;
 
 app.use("/api/auth",auothRouter)
-app.use("/api/group",verifyToken , groupRouter)
-app.use("/api/list", listRouter)
+app.use("/api/group",verifyToken ,groupRouter)
+app.use("/api/list" ,verifyToken ,listRouter)
 app.use("/api/uesr", userRouter)
  
 app.use(errorHandler)
