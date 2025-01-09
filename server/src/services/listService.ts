@@ -7,13 +7,8 @@ import { addListToGroupService } from "./groupService";
 // ceate new list
 export const createNewListService = async (data: ListDTO): Promise<ResData> => {
     try {
-        const newList = new ListModel({
-            name: data.name,
-            listType: data.listType,
-            group: data.grupId,
-            completed: data.listType === ListType.ShoppingList ? false : null
-        });
-        await addListToGroupService(data.grupId, newList._id, data.listType);
+        const newList = new ListModel(data);
+        await addListToGroupService(data.group, newList._id, data.listType);
         await newList.save();
         return {
             statusCode: 200,
